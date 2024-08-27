@@ -1,0 +1,87 @@
+ #include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+// Define a struct to represent a task
+struct Task {
+    std::string name;
+    int duration;
+};
+
+// Define a vector to store tasks
+std::vector<Task> tasks;
+
+// Function to add a task
+void addTask() {
+    Task task;
+    std::cout << "Enter task name: ";
+    std::cin >> task.name;
+    std::cout << "Enter task duration (minutes): ";
+    std::cin >> task.duration;
+    tasks.push_back(task);
+}
+
+// Function to display tasks
+void displayTasks() {
+    std::cout << "Tasks:" << std::endl;
+    for (const auto& task : tasks) {
+        std::cout << task.name << " (" << task.duration << " minutes)" << std::endl;
+    }
+}
+
+// Function to mark a task as completed
+void completeTask() {
+    std::string name;
+    std::cout << "Enter task name to mark as completed: ";
+    std::cin >> name;
+    for (auto& task : tasks) {
+        if (task.name == name) {
+            task.duration = 0;
+            std::cout << "Task marked as completed!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "Task not found!" << std::endl;
+}
+
+// Function to display total time spent on tasks
+void displayTotalTime() {
+    int totalTime = 0;
+    for (const auto& task : tasks) {
+        totalTime += task.duration;
+    }
+    std::cout << "Total time spent on tasks: " << totalTime << " minutes" << std::endl;
+}
+
+int main() {
+    while (true) {
+        std::cout << "Time Management Application" << std::endl;
+        std::cout << "1. Add task" << std::endl;
+        std::cout << "2. Display tasks" << std::endl;
+        std::cout << "3. Mark task as completed" << std::endl;
+        std::cout << "4. Display total time spent on tasks" << std::endl;
+        std::cout << "5. Exit" << std::endl;
+        int choice;
+        std::cin >> choice;
+        switch (choice) {
+            case 1:
+                addTask();
+                break;
+            case 2:
+                displayTasks();
+                break;
+            case 3:
+                completeTask();
+                break;
+            case 4:
+                displayTotalTime();
+                break;
+            case 5:
+                return 0;
+            default:
+                std::cout << "Invalid choice!" << std::endl;
+        }
+    }
+    return 0;
+}
